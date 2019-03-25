@@ -17,7 +17,7 @@ public class HelloController {
 	
 	@RequestMapping("/exec")
 	public String call() {
-		String[] cmd = {"sh","/usr/test.sh"};
+		String[] cmd = { "bash", "-c", "~/usr/test.sh test test test test test" };;
 		String result = null;
 		 ProcessBuilder pb = new ProcessBuilder(cmd); 
 		 try
