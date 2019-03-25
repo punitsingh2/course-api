@@ -3,6 +3,8 @@ package com.java.springboot.hello;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,26 +19,37 @@ public class HelloController {
 	
 	@RequestMapping("/exec")
 	public String call() {
-		String[] cmd = { "bash", "-c", "~/usr/test.sh test test test test test" };;
-		String result = null;
-		 
-		 try
-		 {
-		 Process process =  Runtime.getRuntime().exec(cmd);
-		 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-		 StringBuilder builder = new StringBuilder();
+		//String[] cmd = { "bash", "-c", "~/usr/test.sh test test test test test" };;
+		 Process p;
 		 String line = null;
-		 while ( (line = reader.readLine()) != null) {
-		 builder.append(line);
-		 }
-		  result = builder.toString();
-		 System.out.print(result);
-		 System.out.println("end of script execution");
-		 }
-		 catch (IOException e)
-		 { System.out.print("error");
-		 e.printStackTrace();
-		 }
-		 return result;
+	        try {
+	            
+	            List<String> cmdList = new ArrayList<String>();
+	            // adding command and args to the list
+	            cmdList.add("sh");
+	            cmdList.add("/usr/test.sh");
+	            cmdList.add("1");
+	            cmdList.add("2");
+	            cmdList.add("2");
+	            cmdList.add("4");
+	            cmdList.add("5");
+	            ProcessBuilder pb = new ProcessBuilder(cmdList);
+	            p = pb.start();
+	                
+	            p.waitFor(); 
+	            BufferedReader reader=new BufferedReader(new InputStreamReader(
+	             p.getInputStream())); 
+	           
+	            while((line = reader.readLine()) != null) { 
+	                System.out.println(line);
+	            } 
+	        } catch (IOException e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        } catch (InterruptedException e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        }
+		 return line;
 	}
 }
