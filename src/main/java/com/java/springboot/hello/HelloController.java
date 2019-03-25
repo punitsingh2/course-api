@@ -19,10 +19,10 @@ public class HelloController {
 	public String call() {
 		String[] cmd = { "bash", "-c", "~/usr/test.sh test test test test test" };;
 		String result = null;
-		 ProcessBuilder pb = new ProcessBuilder(cmd); 
+		 
 		 try
 		 {
-		 Process process = pb.start();
+		 Process process =  Runtime.getRuntime().exec(cmd);
 		 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		 StringBuilder builder = new StringBuilder();
 		 String line = null;
