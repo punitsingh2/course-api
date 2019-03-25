@@ -21,7 +21,7 @@ public class HelloController {
 	public String call() {
 		//String[] cmd = { "bash", "-c", "~/usr/test.sh test test test test test" };;
 		 Process p;
-		 String line = null;
+		 StringBuffer line = new StringBuffer();
 	        try {
 	            
 	            List<String> cmdList = new ArrayList<String>();
@@ -39,9 +39,9 @@ public class HelloController {
 	            p.waitFor(); 
 	            BufferedReader reader=new BufferedReader(new InputStreamReader(
 	             p.getInputStream())); 
-	           
-	            while((line = reader.readLine()) != null) { 
-	                System.out.println("this is response :"+line);
+	           String line1;
+	            while((line1 = reader.readLine()) != null) { 
+	                line.append(line1);
 	            } 
 	        } catch (IOException e) {
 	            // TODO Auto-generated catch block
@@ -50,6 +50,6 @@ public class HelloController {
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        }
-		 return line;
+		 return line.toString();
 	}
 }
